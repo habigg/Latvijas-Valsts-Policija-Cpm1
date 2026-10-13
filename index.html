@@ -1,1 +1,403 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Latvijas Valsts Policija | CPM1</title>
 
+<style>
+:root {
+  --bg: #07111f;
+  --panel: #101e30;
+  --panel2: #162940;
+  --blue: #2376d2;
+  --text: #edf4ff;
+  --muted: #91a6c0;
+  --green: #38d996;
+  --red: #ff5c69;
+  --border: #263b54;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+header {
+  padding: 22px 16px;
+  background: #0c1b2d;
+  border-bottom: 2px solid var(--blue);
+  text-align: center;
+}
+
+.badge {
+  display: inline-block;
+  padding: 5px 9px;
+  border: 1px solid #437ab5;
+  border-radius: 5px;
+  color: #a8d2ff;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+}
+
+h1 {
+  font-size: clamp(20px, 5vw, 30px);
+  margin: 12px 0 5px;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.container {
+  width: min(850px, 100%);
+  margin: auto;
+  padding: 20px 14px 35px;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 16px;
+}
+
+h2 {
+  margin: 0 0 16px;
+  font-size: 17px;
+}
+
+label {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.search-row {
+  display: flex;
+  gap: 9px;
+}
+
+input {
+  min-width: 0;
+  flex: 1;
+  background: #07111f;
+  border: 1px solid #354c68;
+  color: white;
+  border-radius: 7px;
+  padding: 14px 12px;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+button {
+  border: none;
+  border-radius: 7px;
+  padding: 12px 16px;
+  background: var(--blue);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover { filter: brightness(1.15); }
+
+.examples {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+  margin-top: 12px;
+}
+
+.plate {
+  display: inline-block;
+  padding: 9px 15px;
+  border-radius: 5px;
+  background: #f3f5f7;
+  color: #111;
+  border: 2px solid #aab3bd;
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin-bottom: 15px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.field {
+  background: var(--panel2);
+  padding: 12px;
+  border-radius: 7px;
+  overflow-wrap: anywhere;
+}
+
+.field small {
+  display: block;
+  color: var(--muted);
+  margin-bottom: 7px;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.field strong { font-size: 14px; }
+
+.status {
+  display: inline-block;
+  padding: 5px 8px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.good { color: var(--green); background: #12392f; }
+.warn { color: #ffd166; background: #42351c; }
+.bad { color: var(--red); background: #421f29; }
+
+.warning-box {
+  padding: 13px;
+  background: #291d26;
+  border: 1px solid #67313e;
+  border-radius: 7px;
+  font-size: 13px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.hidden { display: none; }
+
+.notice {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.6;
+  text-align: center;
+  padding: 12px;
+}
+
+footer {
+  text-align: center;
+  padding: 16px;
+  color: #61758e;
+  font-size: 11px;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 480px) {
+  .search-row { flex-direction: column; }
+  .search-row button { width: 100%; }
+  .panel { padding: 14px; }
+  .grid { gap: 8px; }
+  .field { padding: 10px; }
+  .field strong { font-size: 13px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="badge">CPM1 ROLEPLAY • DEMO SISTĒMA</div>
+  <h1>LATVIJAS VALSTS POLICIJA</h1>
+  <div class="subtitle">Transportlīdzekļu pārbaudes terminālis</div>
+</header>
+
+<main class="container">
+
+  <section class="panel">
+    <h2>Transportlīdzekļa pārbaude</h2>
+
+    <label for="plateInput">VALSTS REĢISTRĀCIJAS NUMURS</label>
+
+    <div class="search-row">
+      <input
+        id="plateInput"
+        type="text"
+        placeholder="Piemēram, AB-1234"
+        maxlength="12"
+        autocomplete="off"
+      >
+      <button onclick="checkVehicle()">PĀRBAUDĪT</button>
+    </div>
+
+    <div class="examples">
+      Demo numuri: AB-1234 · CPM-777 · RP-2026 · ZX-9000
+    </div>
+  </section>
+
+  <section id="result" class="panel hidden" aria-live="polite"></section>
+
+  <div class="notice">
+    Šī ir izdomāta CPM1 lomu spēles demonstrācijas sistēma.
+    Ieraksti un personas ir izdomāti. Sistēma nav savienota ar
+    Latvijas Valsts policiju, CSDD vai citām oficiālām datubāzēm.
+  </div>
+
+</main>
+
+<footer>
+  CPM1 ROLEPLAY TERMINĀLIS • DEMO VERSIJA
+</footer>
+
+<script>
+const vehicles = {
+  "AB1234": {
+    plate: "AB-1234",
+    make: "BMW M5",
+    color: "Melna",
+    owner: "Mārtiņš Ozols",
+    registration: "Reģistrēts RP",
+    license: "Derīga",
+    warning: "Nav reģistrētu RP brīdinājumu.",
+    level: "good"
+  },
+
+  "CPM777": {
+    plate: "CPM-777",
+    make: "Nissan GT-R",
+    color: "Zila",
+    owner: "Rihards Kalniņš",
+    registration: "Reģistrēts RP",
+    license: "Derīga",
+    warning: "RP piezīme: iepriekšējs ātruma pārkāpums.",
+    level: "warn"
+  },
+
+  "RP2026": {
+    plate: "RP-2026",
+    make: "Audi RS6",
+    color: "Pelēka",
+    owner: "Elīna Bērziņa",
+    registration: "Reģistrēts RP",
+    license: "Jāpārbauda RP",
+    warning: "RP piezīme: nepieciešama dokumentu pārbaude.",
+    level: "warn"
+  },
+
+  "ZX9000": {
+    plate: "ZX-9000",
+    make: "Mercedes-AMG C63",
+    color: "Balta",
+    owner: "Artūrs Liepiņš",
+    registration: "Reģistrēts RP",
+    license: "Derīga",
+    warning: "Nav reģistrētu RP brīdinājumu.",
+    level: "good"
+  }
+};
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, function(char) {
+    return {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    }[char];
+  });
+}
+
+function checkVehicle() {
+  const input = document.getElementById("plateInput");
+  const result = document.getElementById("result");
+
+  const searchPlate = input.value
+    .toUpperCase()
+    .replace(/[^A-Z0-9]/g, "");
+
+  result.classList.remove("hidden");
+
+  if (!searchPlate) {
+    result.innerHTML = `
+      <h2>Ievadi numura zīmi</h2>
+      <div class="warning-box">
+        Lai veiktu pārbaudi, ievadi transportlīdzekļa numuru.
+      </div>`;
+    return;
+  }
+
+  const car = vehicles[searchPlate];
+
+  if (!car) {
+    result.innerHTML = `
+      <h2>Rezultāts: ieraksts nav atrasts</h2>
+      <div class="warning-box">
+        Numurs <strong>${escapeHTML(input.value)}</strong>
+        demo datubāzē nav atrasts.
+        Pārbaudi numuru vai izmanto kādu no demo numuriem.
+      </div>`;
+    return;
+  }
+
+  const statusClass = car.level === "good" ? "good" : "warn";
+
+  result.innerHTML = `
+    <h2>Transportlīdzekļa informācija</h2>
+
+    <div class="plate">${escapeHTML(car.plate)}</div>
+
+    <div class="grid">
+      <div class="field">
+        <small>Transportlīdzeklis</small>
+        <strong>${escapeHTML(car.make)}</strong>
+      </div>
+
+      <div class="field">
+        <small>Krāsa</small>
+        <strong>${escapeHTML(car.color)}</strong>
+      </div>
+
+      <div class="field">
+        <small>Īpašnieks (RP)</small>
+        <strong>${escapeHTML(car.owner)}</strong>
+      </div>
+
+      <div class="field">
+        <small>Reģistrācijas statuss (RP)</small>
+        <strong>${escapeHTML(car.registration)}</strong>
+      </div>
+
+      <div class="field">
+        <small>Vadītāja apliecība (RP)</small>
+        <strong>${escapeHTML(car.license)}</strong>
+      </div>
+
+      <div class="field">
+        <small>Datubāzes statuss</small>
+        <strong><span class="status ${statusClass}">${
+          car.level === "good" ? "PĀRBAUDĪTS" : "JĀPIEVĒRŠ UZMANĪBA"
+        }</span></strong>
+      </div>
+    </div>
+
+    <h2 style="margin-top:20px">Brīdinājumi un piezīmes</h2>
+
+    <div class="warning-box">
+      ${escapeHTML(car.warning)}
+    </div>
+
+    <div class="notice">
+      Informācija ir paredzēta tikai CPM1 lomu spēlei.
+    </div>
+  `;
+}
+
+document.getElementById("plateInput").addEventListener("keydown", function(event) {
+  if (event.key === "Enter") {
+    checkVehicle();
+  }
+});
+</script>
+
+</body>
+</html>
