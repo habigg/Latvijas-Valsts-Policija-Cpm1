@@ -2,23 +2,123 @@
   "officers": [
     {
       "id": "RP-VP-001",
-      "name": "Demo Inspektors",
+      "name": "Jānis Bērziņš",
       "rank": "Inspektors",
-      "unit": "Patruļdienests (RP)",
+      "unit": "Patruļpolicija",
+      "status": "Aktīvs"
+    },
+    {
+      "id": "RP-VP-002",
+      "name": "Anna Kalniņa",
+      "rank": "Seržants",
+      "unit": "Ceļu policija",
+      "status": "Aktīvs"
+    },
+    {
+      "id": "RP-VP-003",
+      "name": "Mārtiņš Ozols",
+      "rank": "Jaunākais inspektors",
+      "unit": "Patruļpolicija",
+      "status": "Aktīvs"
+    },
+    {
+      "id": "RP-VP-004",
+      "name": "Roberts Liepiņš",
+      "rank": "Majors",
+      "unit": "Vadība",
       "status": "Aktīvs"
     }
   ],
   "incidents": [
-  {
-    "id": "RP-2026-001",
-    "date": "2026-10-13",
-    "type": "Ceļu satiksmes pārkāpums",
-    "location": "Rīga (RP)",
-    "status": "Atvērts",
-    "description": "Demonstrācijas Roleplay ieraksts"
-  }
-]
-  "persons": [],
-  "vehicles": [],
-  "fines": []
+    {
+      "id": "RP-2026-001",
+      "date": "2026-10-10",
+      "type": "Ceļu satiksmes negadījums",
+      "location": "Rīga (RP)",
+      "status": "Atvērts",
+      "description": "Demonstrācijas Roleplay notikums."
+    },
+    {
+      "id": "RP-2026-002",
+      "date": "2026-10-11",
+      "type": "Satiksmes pārbaude",
+      "location": "Jūrmala (RP)",
+      "status": "Slēgts",
+      "description": "Demonstrācijas Roleplay satiksmes pārbaude."
+    },
+    {
+      "id": "RP-2026-003",
+      "date": "2026-10-12",
+      "type": "Sabiedriskās kārtības pārkāpums",
+      "location": "Liepāja (RP)",
+      "status": "Procesā",
+      "description": "Izdomāts Roleplay notikums."
+    }
+  ],
+  "persons": [
+    {
+      "id": "RP-P-001",
+      "name": "Demo Persona A",
+      "notes": "Demonstrācijas profils.",
+      "status": "Reģistrēts"
+    },
+    {
+      "id": "RP-P-002",
+      "name": "Demo Persona B",
+      "notes": "Izdomāts Roleplay ieraksts.",
+      "status": "Reģistrēts"
+    },
+    {
+      "id": "RP-P-003",
+      "name": "Demo Persona C",
+      "notes": "Demonstrācijas profils.",
+      "status": "Pārbaudāms"
+    }
+  ],
+  "vehicles": [
+    {
+      "plate": "RP-1001",
+      "make": "BMW",
+      "model": "530",
+      "owner": "Demo Persona A",
+      "status": "Reģistrēts"
+    },
+    {
+      "plate": "RP-1002",
+      "make": "Audi",
+      "model": "A6",
+      "owner": "Demo Persona B",
+      "status": "Reģistrēts"
+    },
+    {
+      "plate": "RP-1003",
+      "make": "Volkswagen",
+      "model": "Passat",
+      "owner": "Demo Persona C",
+      "status": "Pārbaudāms"
+    }
+  ],
+  "fines": [
+    {
+      "id": "RP-S-001",
+      "person": "Demo Persona A",
+      "reason": "Ātruma pārsniegšana (RP)",
+      "amount": 150,
+      "status": "Neapmaksāts"
+    },
+    {
+      "id": "RP-S-002",
+      "person": "Demo Persona B",
+      "reason": "Ceļu satiksmes noteikumu pārkāpums (RP)",
+      "amount": 75,
+      "status": "Apmaksāts"
+    },
+    {
+      "id": "RP-S-003",
+      "person": "Demo Persona C",
+      "reason": "Nepakļaušanās Roleplay situācijā",
+      "amount": 200,
+      "status": "Neapmaksāts"
+    }
+  ]
 }
