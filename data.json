@@ -1,0 +1,15 @@
+{
+  "officers": [
+    {
+      "id": "RP-VP-001",
+      "name": "Demo Inspektors",
+      "rank": "Inspektors",
+      "unit": "Patruļdienests (RP)",
+      "status": "Aktīvs"
+    }
+  ],
+  "incidents": [],
+  "persons": [],
+  "vehicles": [],
+  "fines": []
+}
