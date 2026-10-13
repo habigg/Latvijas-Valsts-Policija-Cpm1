@@ -3,728 +3,317 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CPM1 RP — Policijas sistēma</title>
-
+<title>CPM1 | Auto reģistrs</title>
 <style>
-:root {
-    --bg: #0b1220;
-    --panel: #131e30;
-    --panel2: #1c2a40;
-    --border: #30415a;
-    --text: #f1f5fb;
-    --muted: #a9b8cc;
-    --blue: #3478f6;
-    --green: #159b65;
-    --red: #d94343;
-    --yellow: #b78319;
-}
-
-* { box-sizing: border-box; }
-
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-}
-
-header {
-    text-align: center;
-    padding: 24px 15px;
-    background: #101a2a;
-    border-bottom: 1px solid var(--border);
-}
-
-header h1 { margin: 0 0 8px; font-size: 26px; }
-header p { margin: 0; color: var(--muted); font-size: 14px; }
-
-.container {
-    max-width: 1150px;
-    margin: auto;
-    padding: 18px;
-}
-
-nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 18px;
-}
-
-button {
-    padding: 11px 14px;
-    border: 0;
-    border-radius: 7px;
-    background: var(--blue);
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-button:hover { filter: brightness(1.12); }
-
-nav button {
-    background: var(--panel2);
-    border: 1px solid var(--border);
-}
-
-nav button.active {
-    background: var(--blue);
-    border-color: var(--blue);
-}
-
-.panel {
-    padding: 20px;
-    border-radius: 11px;
-    border: 1px solid var(--border);
-    background: var(--panel);
-    margin-bottom: 18px;
-}
-
-.hidden { display: none !important; }
-
-h2 { margin-top: 0; font-size: 21px; }
-h3 { font-size: 17px; }
-
-label {
-    display: block;
-    color: #c6d3e6;
-    margin: 12px 0 6px;
-    font-size: 13px;
-}
-
-input, select, textarea {
-    width: 100%;
-    padding: 11px;
-    background: #0b1525;
-    color: white;
-    border: 1px solid var(--border);
-    border-radius: 7px;
-    font: inherit;
-}
-
-textarea { min-height: 80px; resize: vertical; }
-
-input:focus, select:focus, textarea:focus {
-    outline: 2px solid #3478f6;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0 15px;
-}
-
-.full { grid-column: 1 / -1; }
-
-.actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 15px;
-}
-
-.green { background: var(--green); }
-.red { background: var(--red); }
-.yellow { background: var(--yellow); }
-.gray { background: #3c4c63; }
-.small { padding: 7px 10px; font-size: 12px; }
-
-.card {
-    background: #0d1829;
-    border: 1px solid var(--border);
-    border-radius: 9px;
-    padding: 15px;
-    margin-top: 12px;
-    overflow-wrap: anywhere;
-}
-
-.card-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.plate {
-    display: inline-block;
-    background: #f1f3f6;
-    color: #101820;
-    border: 2px solid #aab5c2;
-    border-radius: 5px;
-    padding: 7px 12px;
-    font-weight: bold;
-    letter-spacing: 1px;
-}
-
-.meta {
-    margin-top: 9px;
-    color: var(--muted);
-    font-size: 13px;
-    line-height: 1.7;
-}
-
-.badge {
-    display: inline-block;
-    padding: 5px 8px;
-    border-radius: 5px;
-    font-size: 12px;
-    font-weight: bold;
-}
-
-.b-green { background: #174d38; color: #8df0bc; }
-.b-red { background: #562b32; color: #ffaaaa; }
-.b-yellow { background: #55431e; color: #ffdc8a; }
-.b-blue { background: #203e70; color: #b5d0ff; }
-
-.stats {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 12px;
-    margin-bottom: 18px;
-}
-
-.stat {
-    padding: 15px;
-    border-radius: 9px;
-    background: var(--panel);
-    border: 1px solid var(--border);
-}
-
-.stat span { color: var(--muted); font-size: 13px; }
-.stat strong { display: block; font-size: 25px; margin-top: 8px; }
-
-.empty {
-    text-align: center;
-    color: var(--muted);
-    padding: 20px 0;
-}
-
-.notice {
-    background: #172b49;
-    border: 1px solid #2c5288;
-    color: #c7dcff;
-    padding: 12px;
-    border-radius: 7px;
-    font-size: 13px;
-    line-height: 1.6;
-    margin-bottom: 15px;
-}
-
-hr {
-    border: 0;
-    border-top: 1px solid var(--border);
-    margin: 18px 0;
-}
-
-footer {
-    text-align: center;
-    color: var(--muted);
-    padding: 20px;
-    font-size: 12px;
-}
-
-@media(max-width:650px) {
-    .container { padding: 10px; }
-    .panel { padding: 14px; }
-    .grid, .stats { grid-template-columns: 1fr; }
-    nav button { flex: 1 1 40%; }
-    header h1 { font-size: 22px; }
-}
+:root{--bg:#07111f;--panel:#101f32;--panel2:#182a40;--blue:#2479dc;--text:#eef5ff;--muted:#9aacc2;--red:#ff6672;--green:#3bd99b;--border:#2b4059}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
+header{background:#0c1c30;padding:20px 14px;text-align:center;border-bottom:2px solid var(--blue)}
+header h1{font-size:24px;margin:10px 0 5px}
+header p{color:var(--muted);font-size:13px}
+.tag{font-size:10px;letter-spacing:2px;color:#a9d2ff;border:1px solid #3d6694;padding:5px 8px;border-radius:4px}
+main{max-width:900px;margin:auto;padding:16px 12px 30px}
+nav,.actions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+button{background:var(--blue);color:white;border:0;border-radius:7px;padding:12px;cursor:pointer;font-weight:bold}
+button.secondary{background:#293c54}
+button.danger{background:#a92f43}
+nav button{flex:1;min-width:110px}
+.panel{background:var(--panel);border:1px solid var(--border);padding:16px;border-radius:10px;margin-bottom:14px}
+h2{font-size:18px;margin:0 0 15px}
+label{display:block;color:var(--muted);font-size:12px;margin:10px 0 6px}
+input,select,textarea{width:100%;padding:12px;background:#071321;color:white;border:1px solid #354b66;border-radius:7px;font:inherit;font-size:16px}
+textarea{resize:vertical;min-height:75px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.full{grid-column:1/-1}
+.hidden{display:none!important}
+.muted{color:var(--muted);font-size:12px;line-height:1.6}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:14px}
+.stat{background:var(--panel2);padding:13px;border-radius:8px}
+.stat strong{font-size:22px;display:block}
+.stat span{font-size:11px;color:var(--muted)}
+.record{background:var(--panel2);border:1px solid var(--border);padding:13px;border-radius:8px;margin-top:10px;overflow-wrap:anywhere}
+.record-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.plate{background:#f5f6f8;color:#111;padding:5px 9px;border-radius:4px;font-weight:bold;letter-spacing:1px}
+.status{display:inline-block;padding:4px 7px;border-radius:4px;font-size:11px;font-weight:bold;background:#123c30;color:#65e8b3}
+.record p{font-size:13px;line-height:1.6;white-space:pre-wrap}
+.actions button{flex:1}
+.notice{text-align:center;color:var(--muted);font-size:11px;line-height:1.6;padding:10px}
+@media(max-width:480px){.grid{grid-template-columns:1fr}.full{grid-column:auto}.stat{padding:9px}.stat strong{font-size:19px}header h1{font-size:20px}}
 </style>
 </head>
-
 <body>
 <header>
-    <h1>🚔 CPM1 ROLEPLAY</h1>
-    <p>Policijas transportlīdzekļu reģistrs un tehnisko apskašu sistēma</p>
+  <span class="tag">CPM1 ROLEPLAY • DEMO</span>
+  <h1>POLICIJAS DATUBĀZE</h1>
+  <p>Transportlīdzekļu un īpašnieku reģistrs</p>
 </header>
 
-<div class="container">
+<main>
+  <div class="stats">
+    <div class="stat"><strong id="total">0</strong><span>REĢISTRĒTAS AUTOMAŠĪNAS</span></div>
+    <div class="stat"><strong id="active">0</strong><span>AKTĪVA REĢISTRĀCIJA</span></div>
+  </div>
 
-    <div class="stats">
-        <div class="stat">
-            <span>Reģistrētās automašīnas</span>
-            <strong id="statCars">0</strong>
-        </div>
-        <div class="stat">
-            <span>Aktīvas TA</span>
-            <strong id="statValid">0</strong>
-        </div>
-        <div class="stat">
-            <span>Neaktīvas TA</span>
-            <strong id="statInvalid">0</strong>
-        </div>
+  <nav>
+    <button data-tab="search">Meklēt auto</button>
+    <button data-tab="add">Reģistrēt auto</button>
+    <button data-tab="all">Visi auto</button>
+  </nav>
+
+  <section id="search" class="panel">
+    <h2>🔎 Automašīnas meklēšana</h2>
+    <label for="query">Numura zīme vai īpašnieka vārds</label>
+    <input id="query" placeholder="Piemēram, AB-1234">
+    <div class="actions" style="margin-top:12px">
+      <button id="searchBtn">MEKLĒT</button>
+      <button id="showAllBtn" class="secondary">RĀDĪT VISUS</button>
     </div>
+    <div id="searchResults" aria-live="polite"></div>
+  </section>
 
-    <nav id="navigation">
-        <button type="button" class="active" data-tab="search">🔍 Meklēšana</button>
-        <button type="button" data-tab="add">🚘 Reģistrēt auto</button>
-        <button type="button" data-tab="all">📋 Visi auto</button>
-        <button type="button" data-tab="ta">🛠️ Pievienot TA</button>
-        <button type="button" data-tab="allta">📑 TA saraksts</button>
-        <button type="button" data-tab="data">💾 Dati</button>
-    </nav>
-
-    <section id="search" class="panel">
-        <h2>Transportlīdzekļu meklēšana</h2>
-        <input id="searchInput" placeholder="Meklē numuru, īpašnieku, marku vai modeli...">
-        <div id="searchResults"></div>
-    </section>
-
-    <section id="add" class="panel hidden">
-        <h2 id="carTitle">Reģistrēt automašīnu</h2>
-        <form id="carForm">
-            <input type="hidden" id="carId">
-
-            <div class="grid">
-                <div>
-                    <label for="plate">Numurzīme *</label>
-                    <input id="plate" required maxlength="20" placeholder="AB-1234">
-                </div>
-                <div>
-                    <label for="owner">Īpašnieks *</label>
-                    <input id="owner" required placeholder="Vārds Uzvārds">
-                </div>
-                <div>
-                    <label for="make">Marka *</label>
-                    <input id="make" required placeholder="BMW">
-                </div>
-                <div>
-                    <label for="model">Modelis *</label>
-                    <input id="model" required placeholder="M3">
-                </div>
-                <div>
-                    <label for="color">Krāsa</label>
-                    <input id="color" placeholder="Melna">
-                </div>
-                <div>
-                    <label for="carStatus">Reģistrācijas statuss</label>
-                    <select id="carStatus">
-                        <option>Reģistrēta</option>
-                        <option>Noņemta no uzskaites</option>
-                        <option>Meklēšanā</option>
-                    </select>
-                </div>
-                <div class="full">
-                    <label for="carNotes">Piezīmes</label>
-                    <textarea id="carNotes"></textarea>
-                </div>
-            </div>
-
-            <div class="actions">
-                <button class="green" type="submit">Saglabāt automašīnu</button>
-                <button class="gray" type="button" id="cancelCar">Atcelt</button>
-            </div>
-        </form>
-    </section>
-
-    <section id="all" class="panel hidden">
-        <h2>Visas automašīnas</h2>
-        <input id="allCarSearch" placeholder="Filtrēt pēc numura vai īpašnieka...">
-        <div id="allCars"></div>
-    </section>
-
-    <section id="ta" class="panel hidden">
-        <h2 id="taTitle">Pievienot tehnisko apskati</h2>
-        <div class="notice">
-            Izvēlies reģistrētu automašīnu vai ievadi numurzīmi manuāli.
+  <section id="add" class="panel hidden">
+    <h2 id="formTitle">＋ Reģistrēt automašīnu RP</h2>
+    <form id="carForm">
+      <div class="grid">
+        <div>
+          <label for="plate">Numura zīme *</label>
+          <input id="plate" required maxlength="15" placeholder="AB-1234">
         </div>
-
-        <form id="taForm">
-            <input type="hidden" id="taId">
-
-            <div class="grid">
-                <div>
-                    <label for="taPlate">Numurzīme *</label>
-                    <input id="taPlate" list="platesList" required placeholder="AB-1234">
-                    <datalist id="platesList"></datalist>
-                </div>
-                <div>
-                    <label for="taStatus">Apskates rezultāts *</label>
-                    <select id="taStatus" required>
-                        <option value="Izieta">Izieta</option>
-                        <option value="Neizieta">Neizieta</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="taDate">Apskates datums *</label>
-                    <input id="taDate" type="date" required>
-                </div>
-                <div>
-                    <label for="taExpiry">Derīga līdz</label>
-                    <input id="taExpiry" type="date">
-                </div>
-                <div>
-                    <label for="taInspector">Inspektors</label>
-                    <input id="taInspector" placeholder="Inspektora vārds">
-                </div>
-                <div>
-                    <label for="taOdometer">Nobraukums (km)</label>
-                    <input id="taOdometer" type="number" min="0" placeholder="120000">
-                </div>
-                <div class="full">
-                    <label for="taNotes">Piezīmes / defekti</label>
-                    <textarea id="taNotes" placeholder="Konstatētie defekti vai cita informācija..."></textarea>
-                </div>
-            </div>
-
-            <div class="actions">
-                <button type="submit" class="green">Saglabāt TA</button>
-                <button type="button" class="gray" id="cancelTA">Atcelt</button>
-            </div>
-        </form>
-    </section>
-
-    <section id="allta" class="panel hidden">
-        <h2>Tehnisko apskašu saraksts</h2>
-        <input id="allTASearch" placeholder="Meklēt pēc numura, statusa vai inspektora...">
-
-        <div class="actions">
-            <button type="button" class="gray small" data-filter="all">Visas</button>
-            <button type="button" class="green small" data-filter="valid">Aktīvas</button>
-            <button type="button" class="yellow small" data-filter="expired">Beigušās</button>
-            <button type="button" class="red small" data-filter="failed">Neizietas</button>
+        <div>
+          <label for="owner">Īpašnieka vārds, uzvārds *</label>
+          <input id="owner" required maxlength="100" placeholder="Jānis Bērziņš">
         </div>
-
-        <div id="allTA"></div>
-    </section>
-
-    <section id="data" class="panel hidden">
-        <h2>Datu pārvaldība</h2>
-
-        <div class="notice">
-            Dati tiek saglabāti šī pārlūka lokālajā krātuvē. Tie automātiski nesinhronizējas ar citām ierīcēm. Regulāri izveido rezerves kopiju.
+        <div>
+          <label for="make">Marka *</label>
+          <input id="make" required maxlength="60" placeholder="BMW">
         </div>
-
-        <h3>Eksportēt datus</h3>
-        <button type="button" id="exportData">📤 Lejupielādēt rezerves kopiju</button>
-
-        <hr>
-
-        <h3>Importēt datus</h3>
-        <label for="importFile">Izvēlies JSON rezerves kopiju</label>
-        <input type="file" id="importFile" accept=".json,application/json">
-        <div class="actions">
-            <button type="button" class="green" id="importData">📥 Importēt</button>
+        <div>
+          <label for="model">Modelis *</label>
+          <input id="model" required maxlength="60" placeholder="M5">
         </div>
+        <div>
+          <label for="color">Krāsa</label>
+          <input id="color" maxlength="40" placeholder="Melna">
+        </div>
+        <div>
+          <label for="registration">RP reģistrācijas statuss</label>
+          <select id="registration">
+            <option value="Aktīva">Aktīva</option>
+            <option value="Apturēta">Apturēta</option>
+            <option value="Noņemta no uzskaites">Noņemta no uzskaites</option>
+          </select>
+        </div>
+        <div class="full">
+          <label for="notes">Piezīmes</label>
+          <textarea id="notes" maxlength="1000" placeholder="Papildu informācija par auto RP ietvaros..."></textarea>
+        </div>
+      </div>
+      <div class="actions" style="margin-top:14px">
+        <button type="submit" id="saveBtn">SAGLABĀT AUTOMAŠĪNU</button>
+        <button type="button" id="cancelEdit" class="secondary hidden">ATCELT LABOŠANU</button>
+      </div>
+    </form>
+  </section>
 
-        <hr>
-        <h3>Datu dzēšana</h3>
-        <button type="button" class="red" id="clearData">Dzēst visus datus</button>
-    </section>
-</div>
+  <section id="all" class="panel hidden">
+    <h2>📋 Reģistrētās automašīnas</h2>
+    <div class="actions">
+      <button id="exportBtn" class="secondary">EKSPORTĒT DATU KOPIJU</button>
+      <button id="importBtn" class="secondary">IMPORTĒT DATU KOPIJU</button>
+      <input id="importFile" type="file" accept=".json,application/json" class="hidden">
+    </div>
+    <div id="allResults"></div>
+  </section>
 
-<footer>CPM1 Roleplay • Neoficiāla RP uzskaites sistēma</footer>
+  <div class="notice">
+    Neoficiāla CPM1 lomu spēles demonstrācijas sistēma.
+    Ieraksti paredzēti tikai spēlei un nav saistīti ar valsts iestāžu datubāzēm.
+    Dati saglabājas šajā pārlūkā, nevis kopīgā serverī.
+  </div>
+</main>
 
 <script>
-"use strict";
+const KEY = "cpm1_rp_vehicle_register_v1";
+let cars = loadCars();
+let editingId = null;
 
-const CAR_KEY = "cpm1_rp_vehicle_register_v1";
-const TA_KEY = "cpm1_rp_ta_register_v1";
-
-let cars = readData(CAR_KEY);
-let taRecords = readData(TA_KEY);
-let taFilter = "all";
-
-function $(id) {
-    return document.getElementById(id);
+function loadCars(){
+  try{
+    const d = JSON.parse(localStorage.getItem(KEY) || "[]");
+    return Array.isArray(d) ? d.filter(c => c && typeof c.id === "string") : [];
+  }catch{return []}
 }
 
-function readData(key) {
-    try {
-        const value = JSON.parse(localStorage.getItem(key) || "[]");
-        return Array.isArray(value) ? value : [];
-    } catch {
-        return [];
-    }
+function saveCars(){
+  try{
+    localStorage.setItem(KEY, JSON.stringify(cars));
+    updateStats();
+    return true;
+  }catch{
+    alert("Neizdevās saglabāt datus. Pārbaudi pārlūka iestatījumus.");
+    return false;
+  }
 }
 
-function uid() {
-    return Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+function esc(v){
+  return String(v ?? "").replace(/[&<>"']/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  })[c]);
 }
 
-function esc(value) {
-    return String(value ?? "").replace(/[&<>"']/g, ch => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#39;"
-    })[ch]);
+function norm(v){return String(v||"").toUpperCase().replace(/[^A-Z0-9]/g,"")}
+
+function updateStats(){
+  document.getElementById("total").textContent=cars.length;
+  document.getElementById("active").textContent=cars.filter(c=>c.registration==="Aktīva").length;
 }
 
-function norm(value) {
-    return String(value || "").trim().toUpperCase();
+function card(c){
+  return `<article class="record">
+    <div class="record-top">
+      <span class="plate">${esc(c.plate)}</span>
+      <span class="status">${esc(c.registration)}</span>
+    </div>
+    <p><strong>Transportlīdzeklis:</strong> ${esc(c.make)} ${esc(c.model)}
+<strong>Īpašnieks:</strong> ${esc(c.owner)}
+<strong>Krāsa:</strong> ${esc(c.color || "Nav norādīta")}
+<strong>Piezīmes:</strong> ${esc(c.notes || "Nav")}
+    </p>
+    <div class="actions">
+      <button data-action="edit" data-id="${esc(c.id)}" class="secondary">LABOT</button>
+      <button data-action="delete" data-id="${esc(c.id)}" class="danger">DZĒST</button>
+    </div>
+  </article>`;
 }
 
-function today() {
-    const date = new Date();
-    date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
-    return date.toISOString().slice(0, 10);
+function renderAll(){
+  const el=document.getElementById("allResults");
+  el.innerHTML=cars.length
+    ? [...cars].sort((a,b)=>a.plate.localeCompare(b.plate)).map(card).join("")
+    : '<p class="muted">Nav reģistrētu automašīnu. Atver sadaļu “Reģistrēt auto”.</p>';
 }
 
-function fmtDate(value) {
-    if (!value) return "Nav norādīts";
-    const p = value.split("-");
-    return p.length === 3 ? `${p[2]}.${p[1]}.${p[0]}` : value;
+function search(){
+  const raw=document.getElementById("query").value.trim();
+  const q=norm(raw);
+  const name=raw.toLocaleLowerCase("lv");
+  const found=cars.filter(c=>
+    !raw ||
+    norm(c.plate).includes(q) ||
+    String(c.owner).toLocaleLowerCase("lv").includes(name)
+  );
+  document.getElementById("searchResults").innerHTML=found.length
+    ? `<p class="muted">Atrasti ieraksti: ${found.length}</p>${found.map(card).join("")}`
+    : '<p class="muted">Automašīna nav atrasta.</p>';
 }
 
-function statusTA(record) {
-    if (record.status === "Neizieta") {
-        return { text: "Neizieta", cls: "b-red" };
-    }
-
-    if (!record.expiry) {
-        return { text: "Termiņš nav norādīts", cls: "b-yellow" };
-    }
-
-    if (record.expiry < today()) {
-        return { text: "Beigusies", cls: "b-red" };
-    }
-
-    return { text: "Aktīva", cls: "b-green" };
+function tab(id){
+  document.querySelectorAll("main > section").forEach(s=>s.classList.toggle("hidden",s.id!==id));
+  if(id==="all")renderAll();
+  if(id==="search")search();
+  document.querySelectorAll("[data-tab]").forEach(b=>b.style.opacity=b.dataset.tab===id?"1":".75");
 }
 
-function findCar(plate) {
-    return cars.find(car => norm(car.plate) === norm(plate));
-}
+document.querySelectorAll("[data-tab]").forEach(b=>b.addEventListener("click",()=>tab(b.dataset.tab)));
+document.getElementById("searchBtn").addEventListener("click",search);
+document.getElementById("query").addEventListener("keydown",e=>{if(e.key==="Enter")search()});
+document.getElementById("showAllBtn").addEventListener("click",()=>{document.getElementById("query").value="";search()});
 
-function latestTA(plate) {
-    return taRecords
-        .filter(record => norm(record.plate) === norm(plate))
-        .sort((a, b) => (b.date || "").localeCompare(a.date || ""))[0] || null;
-}
-
-/* NAVIGĀCIJA — notikumi piesaistīti tieši pogām */
-function showTab(id) {
-    const target = $(id);
-
-    if (!target) {
-        console.error("Nav atrasta sadaļa:", id);
-        return;
-    }
-
-    document.querySelectorAll(".container > section").forEach(section => {
-        section.classList.add("hidden");
-    });
-
-    target.classList.remove("hidden");
-
-    document.querySelectorAll("#navigation button").forEach(button => {
-        button.classList.toggle("active", button.dataset.tab === id);
-    });
-
-    if (id === "all") renderCars();
-    if (id === "search") renderSearch();
-    if (id === "ta") updatePlateList();
-    if (id === "allta") renderTA();
-    if (id === "data") renderStats();
-
-    window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-document.querySelectorAll("#navigation button[data-tab]").forEach(button => {
-    button.addEventListener("click", function() {
-        showTab(this.dataset.tab);
-    });
+document.getElementById("carForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const item={
+    id:editingId || (crypto.randomUUID ? crypto.randomUUID() : String(Date.now())+Math.random()),
+    plate:document.getElementById("plate").value.trim().toUpperCase(),
+    owner:document.getElementById("owner").value.trim(),
+    make:document.getElementById("make").value.trim(),
+    model:document.getElementById("model").value.trim(),
+    color:document.getElementById("color").value.trim(),
+    registration:document.getElementById("registration").value,
+    notes:document.getElementById("notes").value.trim()
+  };
+  if(!item.plate||!item.owner||!item.make||!item.model){
+    alert("Aizpildi visus obligātos laukus.");
+    return;
+  }
+  const duplicate=cars.some(c=>norm(c.plate)===norm(item.plate)&&c.id!==editingId);
+  if(duplicate){
+    alert("Šāda numura zīme jau ir reģistrēta.");
+    return;
+  }
+  const old=cars;
+  if(editingId)cars=cars.map(c=>c.id===editingId?item:c);
+  else cars.push(item);
+  if(!saveCars()){cars=old;return}
+  resetForm();
+  alert(editingId ? "Automašīnas dati atjaunoti!" : "Automašīna reģistrēta!");
+  tab("all");
 });
 
-/* STATISTIKA */
-function renderStats() {
-    $("statCars").textContent = cars.length;
-
-    let valid = 0;
-    let invalid = 0;
-
-    taRecords.forEach(record => {
-        if (statusTA(record).text === "Aktīva") valid++;
-        else invalid++;
-    });
-
-    $("statValid").textContent = valid;
-    $("statInvalid").textContent = invalid;
+function resetForm(){
+  editingId=null;
+  document.getElementById("carForm").reset();
+  document.getElementById("formTitle").textContent="＋ Reģistrēt automašīnu RP";
+  document.getElementById("saveBtn").textContent="SAGLABĀT AUTOMAŠĪNU";
+  document.getElementById("cancelEdit").classList.add("hidden");
 }
 
-/* AUTOMAŠĪNAS */
-$("carForm").addEventListener("submit", function(event) {
-    event.preventDefault();
+document.getElementById("cancelEdit").addEventListener("click",resetForm);
 
-    const id = $("carId").value;
-    const plate = norm($("plate").value);
+document.addEventListener("click",e=>{
+  const b=e.target.closest("button[data-action]");
+  if(!b)return;
+  const c=cars.find(x=>x.id===b.dataset.id);
+  if(!c)return;
 
-    const duplicate = cars.some(car =>
-        norm(car.plate) === plate && car.id !== id
-    );
-
-    if (duplicate) {
-        alert("Šī numurzīme jau ir reģistrēta!");
-        return;
+  if(b.dataset.action==="edit"){
+    editingId=c.id;
+    for(const key of ["plate","owner","make","model","color","registration","notes"]){
+      document.getElementById(key).value=c[key]||"";
     }
-
-    const previous = cars.find(car => car.id === id);
-
-    const record = {
-        id: id || uid(),
-        plate,
-        owner: $("owner").value.trim(),
-        make: $("make").value.trim(),
-        model: $("model").value.trim(),
-        color: $("color").value.trim(),
-        status: $("carStatus").value,
-        notes: $("carNotes").value.trim(),
-        createdAt: previous?.createdAt || new Date().toISOString()
-    };
-
-    cars = id
-        ? cars.map(car => car.id === id ? record : car)
-        : [record, ...cars];
-
-    saveCars();
-    resetCarForm();
-    showTab("all");
-
-    alert(id ? "Automašīna atjaunināta!" : "Automašīna reģistrēta!");
+    document.getElementById("formTitle").textContent="✏️ Labot automašīnas datus";
+    document.getElementById("saveBtn").textContent="SAGLABĀT IZMAIŅAS";
+    document.getElementById("cancelEdit").classList.remove("hidden");
+    tab("add");
+  }else if(b.dataset.action==="delete"){
+    if(!confirm("Vai tiešām dzēst šo automašīnas ierakstu?"))return;
+    const old=cars;
+    cars=cars.filter(x=>x.id!==c.id);
+    if(!saveCars())cars=old;
+    renderAll();search();
+  }
 });
 
-function resetCarForm() {
-    $("carForm").reset();
-    $("carId").value = "";
-    $("carTitle").textContent = "Reģistrēt automašīnu";
-}
+document.getElementById("exportBtn").addEventListener("click",()=>{
+  const blob=new Blob([JSON.stringify(cars,null,2)],{type:"application/json"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url;a.download="cpm1-auto-registrs.json";a.click();
+  URL.revokeObjectURL(url);
+});
 
-$("cancelCar").addEventListener("click", resetCarForm);
-
-function editCar(id) {
-    const car = cars.find(item => item.id === id);
-    if (!car) return;
-
-    $("carId").value = car.id;
-    $("plate").value = car.plate || "";
-    $("owner").value = car.owner || "";
-    $("make").value = car.make || "";
-    $("model").value = car.model || "";
-    $("color").value = car.color || "";
-    $("carStatus").value = car.status || "Reģistrēta";
-    $("carNotes").value = car.notes || "";
-    $("carTitle").textContent = "Rediģēt automašīnu";
-
-    showTab("add");
-}
-
-function deleteCar(id) {
-    const car = cars.find(item => item.id === id);
-    if (!car) return;
-
-    if (!confirm(`Dzēst automašīnu ${car.plate}? Ar to saistītie TA ieraksti paliks.`)) return;
-
-    cars = cars.filter(item => item.id !== id);
-    saveCars();
-}
-
-function saveCars() {
-    localStorage.setItem(CAR_KEY, JSON.stringify(cars));
-    renderCars();
-    renderSearch();
-    updatePlateList();
-    renderStats();
-}
-
-function carCard(car) {
-    const ta = latestTA(car.plate);
-    let taHtml = '<span class="badge b-yellow">TA nav reģistrēta</span>';
-
-    if (ta) {
-        const st = statusTA(ta);
-        taHtml = `<span class="badge ${st.cls}">${esc(st.text)}</span>
-        <div class="meta">Apskate: ${esc(fmtDate(ta.date))}<br>Derīga līdz: ${esc(fmtDate(ta.expiry))}</div>`;
+document.getElementById("importBtn").addEventListener("click",()=>document.getElementById("importFile").click());
+document.getElementById("importFile").addEventListener("change",async e=>{
+  const file=e.target.files[0];if(!file)return;
+  try{
+    const d=JSON.parse(await file.text());
+    if(!Array.isArray(d)||d.some(c=>!c||typeof c.plate!=="string"||typeof c.owner!=="string"||typeof c.make!=="string"||typeof c.model!=="string")){
+      throw Error();
     }
+    const plates=d.map(c=>norm(c.plate));
+    if(new Set(plates).size!==plates.length)throw Error();
+    const old=cars;
+    cars=d.map(c=>({...c,id:typeof c.id==="string"?c.id:(crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random())}));
+    if(!saveCars())cars=old;
+    renderAll();search();
+  }catch{
+    alert("Neizdevās importēt failu. Pārbaudi JSON formātu un vai numura zīmes nav dublētas.");
+  }finally{e.target.value=""}
+});
 
-    const carCls = car.status === "Reģistrēta" ? "b-green" :
-        car.status === "Meklēšanā" ? "b-red" : "b-yellow";
-
-    return `<div class="card">
-        <div class="card-top">
-            <div>
-                <span class="plate">${esc(car.plate)}</span>
-                <h3>${esc(car.make)} ${esc(car.model)}</h3>
-                <div class="meta">Īpašnieks: ${esc(car.owner)}<br>Krāsa: ${esc(car.color || "Nav norādīta")}</div>
-            </div>
-            <span class="badge ${carCls}">${esc(car.status)}</span>
-        </div>
-        <hr>
-        <strong>Tehniskā apskate</strong>
-        <div style="margin-top:8px">${taHtml}</div>
-        ${car.notes ? `<div class="meta">Piezīmes: ${esc(car.notes)}</div>` : ""}
-        <div class="actions">
-            <button class="small" onclick="editCar('${car.id}')">✏️ Rediģēt</button>
-            <button class="small green" onclick="addTAForCar('${car.id}')">🛠️ Pievienot TA</button>
-            <button class="small red" onclick="deleteCar('${car.id}')">🗑️ Dzēst</button>
-        </div>
-    </div>`;
-}
-
-function renderCars() {
-    const query = ($("allCarSearch").value || "").toLowerCase().trim();
-
-    const filtered = cars.filter(car =>
-        [car.plate, car.owner, car.make, car.model, car.color, car.status]
-            .join(" ").toLowerCase().includes(query)
-    );
-
-    $("allCars").innerHTML = filtered.length
-        ? filtered.map(carCard).join("")
-        : '<div class="empty">Automašīnas nav atrastas.</div>';
-}
-
-$("allCarSearch").addEventListener("input", renderCars);
-
-/* MEKLĒŠANA */
-function renderSearch() {
-    const query = ($("searchInput").value || "").toLowerCase().trim();
-
-    if (!query) {
-        $("searchResults").innerHTML = '<div class="empty">Ievadi meklēšanas datus.</div>';
-        return;
-    }
-
-    const foundCars = cars.filter(car =>
-        [car.plate, car.owner, car.make, car.model, car.color, car.status, car.notes]
-            .join(" ").toLowerCase().includes(query)
-    );
-
-    const foundTA = taRecords.filter(record =>
-        [record.plate, record.status, record.inspector, record.notes, record.date, record.expiry]
-            .join(" ").toLowerCase().includes(query)
-    );
-
-    let html = "";
-
-    if (foundCars.length) {
-        html += "<h3>Transportlīdzekļi</h3>" + foundCars.map(carCard).join("");
-    }
-
-    if (foundTA.length) {
-        html += "<h3>TA ieraksti</h3>" + foundTA.map(taCard).join("");
-    }
-
-    $("searchResults").innerHTML = html || '<div class="empty">Nekas netika atrasts.</div>';
-}
-
-$("searchInput").addEventListener("input", renderSearch);
-
-/* TA */
-function updatePlateList() {
-    $("platesList").innerHTML = cars.map(car =>
-        `<option value="${esc(car.plate)}">${esc(car.make)} ${esc(car.model)}</option>`
-    ).join("");
-}
-
-function addTAForCar(id) {
-    const car = cars.find(item => item.id === id);
-    if (!car) return;
-
-    resetTAForm();
-    $("taPlate").value = car.plate;
- 
+updateStats();
+renderAll();
+search();
+tab("search");
+</script>
+</body>
+</html>
