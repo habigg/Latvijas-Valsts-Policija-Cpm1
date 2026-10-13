@@ -8,7 +8,16 @@
       "status": "Aktīvs"
     }
   ],
-  "incidents": [],
+  "incidents": [
+  {
+    "id": "RP-2026-001",
+    "date": "2026-10-13",
+    "type": "Ceļu satiksmes pārkāpums",
+    "location": "Rīga (RP)",
+    "status": "Atvērts",
+    "description": "Demonstrācijas Roleplay ieraksts"
+  }
+]
   "persons": [],
   "vehicles": [],
   "fines": []
