@@ -3,317 +3,649 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CPM1 | Auto reģistrs</title>
+<title>CPM1 | RP Policijas terminālis</title>
 <style>
-:root{--bg:#07111f;--panel:#101f32;--panel2:#182a40;--blue:#2479dc;--text:#eef5ff;--muted:#9aacc2;--red:#ff6672;--green:#3bd99b;--border:#2b4059}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
-header{background:#0c1c30;padding:20px 14px;text-align:center;border-bottom:2px solid var(--blue)}
-header h1{font-size:24px;margin:10px 0 5px}
-header p{color:var(--muted);font-size:13px}
-.tag{font-size:10px;letter-spacing:2px;color:#a9d2ff;border:1px solid #3d6694;padding:5px 8px;border-radius:4px}
-main{max-width:900px;margin:auto;padding:16px 12px 30px}
-nav,.actions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
-button{background:var(--blue);color:white;border:0;border-radius:7px;padding:12px;cursor:pointer;font-weight:bold}
-button.secondary{background:#293c54}
-button.danger{background:#a92f43}
-nav button{flex:1;min-width:110px}
-.panel{background:var(--panel);border:1px solid var(--border);padding:16px;border-radius:10px;margin-bottom:14px}
-h2{font-size:18px;margin:0 0 15px}
-label{display:block;color:var(--muted);font-size:12px;margin:10px 0 6px}
-input,select,textarea{width:100%;padding:12px;background:#071321;color:white;border:1px solid #354b66;border-radius:7px;font:inherit;font-size:16px}
-textarea{resize:vertical;min-height:75px}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.full{grid-column:1/-1}
-.hidden{display:none!important}
-.muted{color:var(--muted);font-size:12px;line-height:1.6}
-.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:14px}
-.stat{background:var(--panel2);padding:13px;border-radius:8px}
-.stat strong{font-size:22px;display:block}
-.stat span{font-size:11px;color:var(--muted)}
-.record{background:var(--panel2);border:1px solid var(--border);padding:13px;border-radius:8px;margin-top:10px;overflow-wrap:anywhere}
-.record-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
-.plate{background:#f5f6f8;color:#111;padding:5px 9px;border-radius:4px;font-weight:bold;letter-spacing:1px}
-.status{display:inline-block;padding:4px 7px;border-radius:4px;font-size:11px;font-weight:bold;background:#123c30;color:#65e8b3}
-.record p{font-size:13px;line-height:1.6;white-space:pre-wrap}
-.actions button{flex:1}
-.notice{text-align:center;color:var(--muted);font-size:11px;line-height:1.6;padding:10px}
-@media(max-width:480px){.grid{grid-template-columns:1fr}.full{grid-column:auto}.stat{padding:9px}.stat strong{font-size:19px}header h1{font-size:20px}}
+:root {
+  --bg:#08111f;
+  --panel:#101d30;
+  --panel2:#16253a;
+  --line:#293c55;
+  --text:#edf4ff;
+  --muted:#9aacc4;
+  --blue:#3182f6;
+  --green:#27c58b;
+  --red:#f05d68;
+  --yellow:#f3bd4f;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
+}
+header {
+  background:#0c1829;
+  border-bottom:1px solid var(--line);
+  padding:20px;
+}
+.header-inner,.container {
+  max-width:1150px;
+  margin:auto;
+}
+.brand {
+  font-size:22px;
+  font-weight:800;
+  letter-spacing:1px;
+}
+.brand span { color:#69a8ff; }
+.subtitle {
+  color:var(--muted);
+  font-size:12px;
+  margin-top:6px;
+}
+.notice {
+  max-width:1150px;
+  margin:14px auto 0;
+  padding:10px 13px;
+  border:1px solid #65552d;
+  background:#302817;
+  color:#f5d88c;
+  border-radius:8px;
+  font-size:12px;
+  line-height:1.5;
+}
+.container { padding:18px; }
+.stats {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px;
+  margin-bottom:18px;
+}
+.stat,.card {
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:12px;
+}
+.stat { padding:15px; }
+.stat-label { color:var(--muted); font-size:12px; }
+.stat-value { font-size:25px; font-weight:800; margin-top:8px; }
+.tabs {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:16px;
+}
+button,.tab {
+  border:1px solid var(--line);
+  background:var(--panel2);
+  color:var(--text);
+  border-radius:8px;
+  padding:11px 14px;
+  font-weight:700;
+  font-size:13px;
+  cursor:pointer;
+}
+button:hover,.tab:hover { border-color:var(--blue); }
+.tab.active,.primary {
+  background:var(--blue);
+  border-color:var(--blue);
+  color:white;
+}
+.danger {
+  background:#3a1b27;
+  border-color:#6d2c3b;
+  color:#ffb3ba;
+}
+.success {
+  background:#12392f;
+  border-color:#20634f;
+  color:#9bf0ce;
+}
+.warning {
+  background:#392e16;
+  border-color:#695324;
+  color:#f5d88c;
+}
+.card { padding:18px; margin-bottom:16px; }
+h2 { font-size:17px; margin:0 0 15px; }
+h3 { font-size:14px; margin:0 0 12px; }
+.form-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+.field { min-width:0; }
+.field.full { grid-column:1/-1; }
+label {
+  display:block;
+  font-size:12px;
+  color:var(--muted);
+  margin-bottom:6px;
+}
+input,select,textarea {
+  width:100%;
+  min-width:0;
+  background:#091423;
+  border:1px solid var(--line);
+  color:var(--text);
+  padding:12px;
+  border-radius:8px;
+  font:inherit;
+  font-size:14px;
+}
+input:focus,select:focus,textarea:focus {
+  outline:2px solid #3182f655;
+  border-color:var(--blue);
+}
+textarea { min-height:75px; resize:vertical; }
+.actions {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:14px;
+}
+.hidden { display:none!important; }
+.muted { color:var(--muted); }
+.small { font-size:12px; }
+.results {
+  display:grid;
+  gap:10px;
+}
+.result {
+  background:#0b1727;
+  border:1px solid var(--line);
+  border-radius:9px;
+  padding:13px;
+  min-width:0;
+}
+.result-top {
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  flex-wrap:wrap;
+  gap:10px;
+}
+.result-title { font-weight:800; overflow-wrap:anywhere; }
+.result-meta {
+  color:var(--muted);
+  font-size:12px;
+  margin-top:5px;
+  line-height:1.7;
+  overflow-wrap:anywhere;
+}
+.badge {
+  display:inline-block;
+  border-radius:5px;
+  padding:5px 7px;
+  font-size:11px;
+  font-weight:800;
+}
+.badge.green { background:#12392f; color:#8ff0c9; }
+.badge.red { background:#431d29; color:#ffadb7; }
+.badge.yellow { background:#3d3016; color:#f7d47c; }
+.badge.blue { background:#17345c; color:#9dc7ff; }
+hr { border:0; border-top:1px solid var(--line); margin:15px 0; }
+.empty {
+  padding:20px;
+  text-align:center;
+  border:1px dashed var(--line);
+  border-radius:8px;
+  color:var(--muted);
+  font-size:13px;
+}
+footer {
+  max-width:1150px;
+  margin:auto;
+  padding:0 18px 25px;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.6;
+}
+@media(max-width:650px) {
+  .stats { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .form-grid { grid-template-columns:1fr; }
+  .field.full { grid-column:auto; }
+  .container { padding:12px; }
+  .card { padding:14px; }
+  header { padding:17px 14px; }
+  button,.tab { padding:11px 12px; }
+}
 </style>
 </head>
 <body>
 <header>
-  <span class="tag">CPM1 ROLEPLAY • DEMO</span>
-  <h1>POLICIJAS DATUBĀZE</h1>
-  <p>Transportlīdzekļu un īpašnieku reģistrs</p>
+  <div class="header-inner">
+    <div class="brand">CPM1 <span>POLICE TERMINAL</span></div>
+    <div class="subtitle">Lomu spēles administrēšana · Spēlētāji · Transportlīdzekļi · Sodi</div>
+  </div>
 </header>
 
-<main>
-  <div class="stats">
-    <div class="stat"><strong id="total">0</strong><span>REĢISTRĒTAS AUTOMAŠĪNAS</span></div>
-    <div class="stat"><strong id="active">0</strong><span>AKTĪVA REĢISTRĀCIJA</span></div>
-  </div>
+<div class="notice">
+  RP DEMO SISTĒMA — paredzēta Car Parking Multiplayer lomu spēlei.
+  Tā nav oficiāla Latvijas policijas sistēma un nav savienota ar valsts datubāzēm.
+</div>
 
-  <nav>
-    <button data-tab="search">Meklēt auto</button>
-    <button data-tab="add">Reģistrēt auto</button>
-    <button data-tab="all">Visi auto</button>
+<main class="container">
+  <section class="stats">
+    <div class="stat">
+      <div class="stat-label">Spēlētāji</div>
+      <div class="stat-value" id="statPlayers">0</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Transportlīdzekļi</div>
+      <div class="stat-value" id="statVehicles">0</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Reģistrētie sodi</div>
+      <div class="stat-value" id="statFines">0</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Neapmaksātie sodi</div>
+      <div class="stat-value" id="statUnpaid">0 €</div>
+    </div>
+  </section>
+
+  <nav class="tabs" aria-label="Sistēmas sadaļas">
+    <button class="tab active" data-tab="search">Meklēt</button>
+    <button class="tab" data-tab="players">Spēlētāji</button>
+    <button class="tab" data-tab="vehicles">Transporti</button>
+    <button class="tab" data-tab="fines">Sodi</button>
+    <button class="tab" data-tab="settings">Sodu noteikumi</button>
+    <button class="tab" data-tab="backup">Datu rezerves kopija</button>
   </nav>
 
-  <section id="search" class="panel">
-    <h2>🔎 Automašīnas meklēšana</h2>
-    <label for="query">Numura zīme vai īpašnieka vārds</label>
-    <input id="query" placeholder="Piemēram, AB-1234">
-    <div class="actions" style="margin-top:12px">
-      <button id="searchBtn">MEKLĒT</button>
-      <button id="showAllBtn" class="secondary">RĀDĪT VISUS</button>
-    </div>
-    <div id="searchResults" aria-live="polite"></div>
-  </section>
-
-  <section id="add" class="panel hidden">
-    <h2 id="formTitle">＋ Reģistrēt automašīnu RP</h2>
-    <form id="carForm">
-      <div class="grid">
-        <div>
-          <label for="plate">Numura zīme *</label>
-          <input id="plate" required maxlength="15" placeholder="AB-1234">
-        </div>
-        <div>
-          <label for="owner">Īpašnieka vārds, uzvārds *</label>
-          <input id="owner" required maxlength="100" placeholder="Jānis Bērziņš">
-        </div>
-        <div>
-          <label for="make">Marka *</label>
-          <input id="make" required maxlength="60" placeholder="BMW">
-        </div>
-        <div>
-          <label for="model">Modelis *</label>
-          <input id="model" required maxlength="60" placeholder="M5">
-        </div>
-        <div>
-          <label for="color">Krāsa</label>
-          <input id="color" maxlength="40" placeholder="Melna">
-        </div>
-        <div>
-          <label for="registration">RP reģistrācijas statuss</label>
-          <select id="registration">
-            <option value="Aktīva">Aktīva</option>
-            <option value="Apturēta">Apturēta</option>
-            <option value="Noņemta no uzskaites">Noņemta no uzskaites</option>
-          </select>
-        </div>
-        <div class="full">
-          <label for="notes">Piezīmes</label>
-          <textarea id="notes" maxlength="1000" placeholder="Papildu informācija par auto RP ietvaros..."></textarea>
-        </div>
+  <!-- MEKLĒŠANA -->
+  <section id="tab-search" class="tab-content">
+    <div class="card">
+      <h2>🔎 Meklēt spēlētāju vai transportlīdzekli</h2>
+      <div class="field">
+        <label for="searchInput">Spēlētāja ID, vārds vai numurzīme</label>
+        <input id="searchInput" placeholder="Piemēram: 12345, Jānis vai RP-123">
       </div>
-      <div class="actions" style="margin-top:14px">
-        <button type="submit" id="saveBtn">SAGLABĀT AUTOMAŠĪNU</button>
-        <button type="button" id="cancelEdit" class="secondary hidden">ATCELT LABOŠANU</button>
+      <div class="actions">
+        <button class="primary" id="searchBtn">Meklēt</button>
+        <button id="showAllBtn">Rādīt visus spēlētājus</button>
       </div>
-    </form>
-  </section>
-
-  <section id="all" class="panel hidden">
-    <h2>📋 Reģistrētās automašīnas</h2>
-    <div class="actions">
-      <button id="exportBtn" class="secondary">EKSPORTĒT DATU KOPIJU</button>
-      <button id="importBtn" class="secondary">IMPORTĒT DATU KOPIJU</button>
-      <input id="importFile" type="file" accept=".json,application/json" class="hidden">
     </div>
-    <div id="allResults"></div>
+    <div id="searchResults" class="results"></div>
   </section>
 
-  <div class="notice">
-    Neoficiāla CPM1 lomu spēles demonstrācijas sistēma.
-    Ieraksti paredzēti tikai spēlei un nav saistīti ar valsts iestāžu datubāzēm.
-    Dati saglabājas šajā pārlūkā, nevis kopīgā serverī.
-  </div>
+  <!-- SPĒLĒTĀJI -->
+  <section id="tab-players" class="tab-content hidden">
+    <div class="card">
+      <h2 id="playerFormTitle">👤 Reģistrēt spēlētāju</h2>
+      <form id="playerForm">
+        <input type="hidden" id="playerEditId">
+        <div class="form-grid">
+          <div class="field">
+            <label for="playerId">Spēlētāja ID *</label>
+            <input id="playerId" required maxlength="60" placeholder="Spēles ID">
+          </div>
+          <div class="field">
+            <label for="playerName">Spēlētāja vārds *</label>
+            <input id="playerName" required maxlength="100" placeholder="Vārds RP">
+          </div>
+          <div class="field full">
+            <label for="playerNotes">Piezīmes</label>
+            <textarea id="playerNotes" maxlength="1000" placeholder="Papildu RP informācija"></textarea>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="primary" type="submit">Saglabāt spēlētāju</button>
+          <button type="button" id="cancelPlayerEdit" class="hidden">Atcelt labošanu</button>
+        </div>
+      </form>
+    </div>
+    <div class="card">
+      <h2>Reģistrētie spēlētāji</h2>
+      <div id="playerList" class="results"></div>
+    </div>
+  </section>
+
+  <!-- TRANSPORTLĪDZEKĻI -->
+  <section id="tab-vehicles" class="tab-content hidden">
+    <div class="card">
+      <h2 id="vehicleFormTitle">🚘 Pievienot transportlīdzekli</h2>
+      <form id="vehicleForm">
+        <input type="hidden" id="vehicleEditId">
+        <div class="form-grid">
+          <div class="field">
+            <label for="vehicleOwner">Īpašnieks — spēlētājs *</label>
+            <select id="vehicleOwner" required>
+              <option value="">Vispirms reģistrē spēlētāju</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="plate">Numurzīme *</label>
+            <input id="plate" required maxlength="20" placeholder="RP-123">
+          </div>
+          <div class="field">
+            <label for="make">Marka *</label>
+            <input id="make" required maxlength="60" placeholder="BMW">
+          </div>
+          <div class="field">
+            <label for="model">Modelis</label>
+            <input id="model" maxlength="60" placeholder="M5">
+          </div>
+          <div class="field">
+            <label for="color">Krāsa</label>
+            <input id="color" maxlength="40" placeholder="Melna">
+          </div>
+          <div class="field">
+            <label for="inspection">Tehniskā apskate (TA)</label>
+            <select id="inspection">
+              <option value="valid">Ir derīga</option>
+              <option value="expired">Nav derīga / nav izieta</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="inspectionDate">TA derīga līdz (ja zināms)</label>
+            <input id="inspectionDate" type="date">
+          </div>
+          <div class="field full">
+            <label for="vehicleNotes">Piezīmes par transportlīdzekli</label>
+            <textarea id="vehicleNotes" maxlength="1000" placeholder="Papildu informācija"></textarea>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="primary" type="submit">Saglabāt transportu</button>
+          <button type="button" id="cancelVehicleEdit" class="hidden">Atcelt labošanu</button>
+        </div>
+      </form>
+    </div>
+    <div class="card">
+      <h2>Reģistrētie transportlīdzekļi</h2>
+      <div id="vehicleList" class="results"></div>
+    </div>
+  </section>
+
+  <!-- SODI -->
+  <section id="tab-fines" class="tab-content hidden">
+    <div class="card">
+      <h2 id="fineFormTitle">🚨 Reģistrēt pārkāpumu / sodu</h2>
+      <form id="fineForm">
+        <input type="hidden" id="fineEditId">
+        <div class="form-grid">
+          <div class="field">
+            <label for="fineOwner">Spēlētājs *</label>
+            <select id="fineOwner" required>
+              <option value="">Izvēlies spēlētāju</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="fineVehicle">Transportlīdzeklis</label>
+            <select id="fineVehicle">
+              <option value="">Nav norādīts</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label for="fineReason">Apstādināšanas / pārkāpuma iemesls *</label>
+            <select id="fineReason" required></select>
+          </div>
+          <div class="field">
+            <label for="fineAmount">Soda summa (€) *</label>
+            <input id="fineAmount" type="number" min="0" max="1000000" step="1" required value="100">
+          </div>
+          <div class="field">
+            <label for="fineStatus">Apmaksas statuss</label>
+            <select id="fineStatus">
+              <option value="unpaid">Nav apmaksāts</option>
+              <option value="paid">Apmaksāts</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="fineOfficer">Policists / darbinieks</label>
+            <input id="fineOfficer" maxlength="100" placeholder="Policista RP vārds">
+          </div>
+          <div class="field">
+            <label for="fineDate">Datums</label>
+            <input id="fineDate" type="date" required>
+          </div>
+          <div class="field full">
+            <label for="fineNotes">Pārkāpuma apraksts / pierādījumi</label>
+            <textarea id="fineNotes" maxlength="2000" placeholder="Apraksti situāciju, apturēšanas iemeslu un papildu informāciju"></textarea>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="primary" type="submit">Reģistrēt sodu</button>
+          <button type="button" id="cancelFineEdit" class="hidden">Atcelt labošanu</button>
+        </div>
+      </form>
+    </div>
+    <div class="card">
+      <h2>Sodu reģistrs</h2>
+      <div class="field">
+        <label for="fineFilter">Filtrēt pēc spēlētāja ID, vārda vai numurzīmes</label>
+        <input id="fineFilter" placeholder="Meklēt sodus...">
+      </div>
+      <div class="actions">
+        <button id="showAllFines">Rādīt visus sodus</button>
+      </div>
+      <hr>
+      <div id="fineList" class="results"></div>
+    </div>
+  </section>
+
+  <!-- SODU NOTEIKUMI -->
+  <section id="tab-settings" class="tab-content hidden">
+    <div class="card">
+      <h2>⚖️ Pārkāpumu un sodu noteikumi</h2>
+      <p class="muted small">
+        Izvēloties iemeslu soda formā, sistēma automātiski ievietos šeit noteikto summu.
+        Pirms saglabāšanas summu vari mainīt.
+      </p>
+      <form id="ruleForm">
+        <div class="form-grid">
+          <div class="field">
+            <label for="ruleName">Pārkāpuma / apstādināšanas iemesls *</label>
+            <input id="ruleName" required maxlength="120" placeholder="Piemēram, TA nav derīga">
+          </div>
+          <div class="field">
+            <label for="ruleAmount">Soda summa (€) *</label>
+            <input id="ruleAmount" type="number" required min="0" max="1000000" step="1" value="100">
+          </div>
+        </div>
+        <div class="actions">
+          <button class="primary" type="submit">Pievienot noteikumu</button>
+        </div>
+      </form>
+      <hr>
+      <div id="ruleList" class="results"></div>
+    </div>
+  </section>
+
+  <!-- REZERVES KOPIJA -->
+  <section id="tab-backup" class="tab-content hidden">
+    <div class="card">
+      <h2>💾 Datu rezerves kopija</h2>
+      <p class="muted small">
+        Eksportē datus failā, lai tos nepazaudētu. Importējot failu, pašreizējie
+        dati tiks aizstāti ar importa failā esošajiem datiem.
+      </p>
+      <div class="actions">
+        <button class="primary" id="exportBtn">Eksportēt JSON</button>
+        <button id="importBtn">Importēt JSON</button>
+        <input id="importFile" type="file" accept=".json,application/json" class="hidden">
+      </div>
+      <hr>
+      <h3>Dzēst visus datus</h3>
+      <p class="muted small">Šī darbība izdzēsīs spēlētājus, transportlīdzekļus, sodus un pielāgotos noteikumus no šī pārlūka.</p>
+      <button class="danger" id="clearAllBtn">Dzēst visus datus</button>
+    </div>
+  </section>
 </main>
 
+<footer>
+  CPM1 RP Policijas terminālis — neoficiāla lomu spēles lietotne.
+  Dati tiek glabāti šī pārlūka lokālajā krātuvē.
+</footer>
+
 <script>
-const KEY = "cpm1_rp_vehicle_register_v1";
-let cars = loadCars();
-let editingId = null;
+"use strict";
 
-function loadCars(){
-  try{
-    const d = JSON.parse(localStorage.getItem(KEY) || "[]");
-    return Array.isArray(d) ? d.filter(c => c && typeof c.id === "string") : [];
-  }catch{return []}
-}
+const STORAGE_KEY = "cpm1_rp_police_terminal_v1";
 
-function saveCars(){
-  try{
-    localStorage.setItem(KEY, JSON.stringify(cars));
-    updateStats();
-    return true;
-  }catch{
-    alert("Neizdevās saglabāt datus. Pārbaudi pārlūka iestatījumus.");
-    return false;
+const DEFAULT_RULES = [
+  {id:"r1", name:"Ātruma pārsniegšana", amount:150},
+  {id:"r2", name:"Braukšana bez derīgas TA", amount:200},
+  {id:"r3", name:"Bīstama / agresīva braukšana", amount:300},
+  {id:"r4", name:"Sarkanās gaismas neievērošana", amount:150},
+  {id:"r5", name:"Nepakļaušanās policijas prasībām", amount:400},
+  {id:"r6", name:"Transportlīdzekļa novietošana neatļautā vietā", amount:100},
+  {id:"r7", name:"Sadursmes izraisīšana", amount:350},
+  {id:"r8", name:"Bēgšana no policijas", amount:600},
+  {id:"r9", name:"Braukšana bez vadītāja apliecības (RP)", amount:300},
+  {id:"r10", name:"Aizdomīga transportlīdzekļa pārbaude", amount:0}
+];
+
+function loadData() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return {players:[], vehicles:[], fines:[], rules:DEFAULT_RULES.map(x=>({...x}))};
+    const d = JSON.parse(raw);
+    return {
+      players:Array.isArray(d.players) ? d.players : [],
+      vehicles:Array.isArray(d.vehicles) ? d.vehicles : [],
+      fines:Array.isArray(d.fines) ? d.fines : [],
+      rules:Array.isArray(d.rules) && d.rules.length ? d.rules : DEFAULT_RULES.map(x=>({...x}))
+    };
+  } catch (e) {
+    alert("Neizdevās nolasīt saglabātos datus. Pārbaudi pārlūka krātuvi.");
+    return {players:[],vehicles:[],fines:[],rules:DEFAULT_RULES.map(x=>({...x}))};
   }
 }
 
-function esc(v){
-  return String(v ?? "").replace(/[&<>"']/g, c => ({
+let db = loadData();
+
+function saveData() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
+    renderAll();
+  } catch (e) {
+    alert("Neizdevās saglabāt datus. Eksportē rezerves kopiju vai atbrīvo vietu pārlūka krātuvē.");
+  }
+}
+
+function uid() {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2,8);
+}
+
+function val(id) {
+  return document.getElementById(id).value.trim();
+}
+
+function setVal(id, value) {
+  document.getElementById(id).value = value ?? "";
+}
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, c => ({
     "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
   })[c]);
 }
 
-function norm(v){return String(v||"").toUpperCase().replace(/[^A-Z0-9]/g,"")}
-
-function updateStats(){
-  document.getElementById("total").textContent=cars.length;
-  document.getElementById("active").textContent=cars.filter(c=>c.registration==="Aktīva").length;
+function money(n) {
+  return (Number(n)||0).toLocaleString("lv-LV") + " €";
 }
 
-function card(c){
-  return `<article class="record">
-    <div class="record-top">
-      <span class="plate">${esc(c.plate)}</span>
-      <span class="status">${esc(c.registration)}</span>
-    </div>
-    <p><strong>Transportlīdzeklis:</strong> ${esc(c.make)} ${esc(c.model)}
-<strong>Īpašnieks:</strong> ${esc(c.owner)}
-<strong>Krāsa:</strong> ${esc(c.color || "Nav norādīta")}
-<strong>Piezīmes:</strong> ${esc(c.notes || "Nav")}
-    </p>
-    <div class="actions">
-      <button data-action="edit" data-id="${esc(c.id)}" class="secondary">LABOT</button>
-      <button data-action="delete" data-id="${esc(c.id)}" class="danger">DZĒST</button>
-    </div>
-  </article>`;
+function today() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
 }
 
-function renderAll(){
-  const el=document.getElementById("allResults");
-  el.innerHTML=cars.length
-    ? [...cars].sort((a,b)=>a.plate.localeCompare(b.plate)).map(card).join("")
-    : '<p class="muted">Nav reģistrētu automašīnu. Atver sadaļu “Reģistrēt auto”.</p>';
+function playerById(id) {
+  return db.players.find(p=>p.id===id);
+}
+function vehicleById(id) {
+  return db.vehicles.find(v=>v.id===id);
+}
+function ownerName(id) {
+  const p = playerById(id);
+  return p ? `${p.name} (ID: ${p.gameId})` : "Nezināms spēlētājs";
+}
+function vehicleName(v) {
+  return `${v.plate} — ${v.make}${v.model ? " "+v.model : ""}`;
+}
+function isTaValid(v) {
+  if (v.inspection !== "valid") return false;
+  if (v.inspectionDate && v.inspectionDate < today()) return false;
+  return true;
 }
 
-function search(){
-  const raw=document.getElementById("query").value.trim();
-  const q=norm(raw);
-  const name=raw.toLocaleLowerCase("lv");
-  const found=cars.filter(c=>
-    !raw ||
-    norm(c.plate).includes(q) ||
-    String(c.owner).toLocaleLowerCase("lv").includes(name)
-  );
-  document.getElementById("searchResults").innerHTML=found.length
-    ? `<p class="muted">Atrasti ieraksti: ${found.length}</p>${found.map(card).join("")}`
-    : '<p class="muted">Automašīna nav atrasta.</p>';
+function empty(text) {
+  return `<div class="empty">${escapeHTML(text)}</div>`;
 }
 
-function tab(id){
-  document.querySelectorAll("main > section").forEach(s=>s.classList.toggle("hidden",s.id!==id));
-  if(id==="all")renderAll();
-  if(id==="search")search();
-  document.querySelectorAll("[data-tab]").forEach(b=>b.style.opacity=b.dataset.tab===id?"1":".75");
+function switchTab(name) {
+  document.querySelectorAll(".tab-content").forEach(el=>el.classList.add("hidden"));
+  document.querySelectorAll(".tab").forEach(el=>el.classList.toggle("active",el.dataset.tab===name));
+  document.getElementById("tab-"+name).classList.remove("hidden");
 }
 
-document.querySelectorAll("[data-tab]").forEach(b=>b.addEventListener("click",()=>tab(b.dataset.tab)));
-document.getElementById("searchBtn").addEventListener("click",search);
-document.getElementById("query").addEventListener("keydown",e=>{if(e.key==="Enter")search()});
-document.getElementById("showAllBtn").addEventListener("click",()=>{document.getElementById("query").value="";search()});
+document.querySelectorAll(".tab").forEach(btn=>{
+  btn.addEventListener("click",()=>switchTab(btn.dataset.tab));
+});
 
-document.getElementById("carForm").addEventListener("submit",e=>{
+/* Spēlētāju reģistrācija */
+
+document.getElementById("playerForm").addEventListener("submit", e=>{
   e.preventDefault();
-  const item={
-    id:editingId || (crypto.randomUUID ? crypto.randomUUID() : String(Date.now())+Math.random()),
-    plate:document.getElementById("plate").value.trim().toUpperCase(),
-    owner:document.getElementById("owner").value.trim(),
-    make:document.getElementById("make").value.trim(),
-    model:document.getElementById("model").value.trim(),
-    color:document.getElementById("color").value.trim(),
-    registration:document.getElementById("registration").value,
-    notes:document.getElementById("notes").value.trim()
-  };
-  if(!item.plate||!item.owner||!item.make||!item.model){
-    alert("Aizpildi visus obligātos laukus.");
+  const editId = val("playerEditId");
+  const gameId = val("playerId");
+  const name = val("playerName");
+  if (!gameId || !name) return;
+
+  const duplicate = db.players.find(p=>p.gameId.toLowerCase()===gameId.toLowerCase() && p.id!==editId);
+  if (duplicate) {
+    alert("Šāds spēlētāja ID jau ir reģistrēts.");
     return;
   }
-  const duplicate=cars.some(c=>norm(c.plate)===norm(item.plate)&&c.id!==editingId);
-  if(duplicate){
-    alert("Šāda numura zīme jau ir reģistrēta.");
-    return;
+
+  if (editId) {
+    const p = playerById(editId);
+    if (!p) return;
+    p.gameId = gameId;
+    p.name = name;
+    p.notes = val("playerNotes");
+  } else {
+    db.players.push({
+      id:uid(), gameId, name, notes:val("playerNotes"), created:today()
+    });
   }
-  const old=cars;
-  if(editingId)cars=cars.map(c=>c.id===editingId?item:c);
-  else cars.push(item);
-  if(!saveCars()){cars=old;return}
-  resetForm();
-  alert(editingId ? "Automašīnas dati atjaunoti!" : "Automašīna reģistrēta!");
-  tab("all");
+
+  resetPlayerForm();
+  saveData();
 });
 
-function resetForm(){
-  editingId=null;
-  document.getElementById("carForm").reset();
-  document.getElementById("formTitle").textContent="＋ Reģistrēt automašīnu RP";
-  document.getElementById("saveBtn").textContent="SAGLABĀT AUTOMAŠĪNU";
-  document.getElementById("cancelEdit").classList.add("hidden");
+function resetPlayerForm() {
+  document.getElementById("playerForm").reset();
+  setVal("playerEditId","");
+  document.getElementById("playerFormTitle").textContent="👤 Reģistrēt spēlētāju";
+  document.getElementById("cancelPlayerEdit").classList.add("hidden");
 }
 
-document.getElementById("cancelEdit").addEventListener("click",resetForm);
+document.getElementById("cancelPlayerEdit").addEventListener("click",resetPlayerForm);
 
-document.addEventListener("click",e=>{
-  const b=e.target.closest("button[data-action]");
-  if(!b)return;
-  const c=cars.find(x=>x.id===b.dataset.id);
-  if(!c)return;
+function editPlayer(id) {
+  const p = playerById(id);
+  if (!p) return;
+  setVal("playerEditId",p.id);
+  setVal("playerId",p.gameId);
+  setVal("playerName",p.name);
+  setVal("playerNotes",p.notes);
+  document.getElementById("playerFormTitle").textContent="Labot spēlētāju";
+  document.getElementById("cancelPlayerEdit").classList.remove("hidden");
+  switchTab("players");
+  document.getElementById("playerId").focus();
+}
 
-  if(b.dataset.action==="edit"){
-    editingId=c.id;
-    for(const key of ["plate","owner","make","model","color","registration","notes"]){
-      document.getElementById(key).value=c[key]||"";
-    }
-    document.getElementById("formTitle").textContent="✏️ Labot automašīnas datus";
-    document.getElementById("saveBtn").textContent="SAGLABĀT IZMAIŅAS";
-    document.getElementById("cancelEdit").classList.remove("hidden");
-    tab("add");
-  }else if(b.dataset.action==="delete"){
-    if(!confirm("Vai tiešām dzēst šo automašīnas ierakstu?"))return;
-    const old=cars;
-    cars=cars.filter(x=>x.id!==c.id);
-    if(!saveCars())cars=old;
-    renderAll();search();
-  }
-});
-
-document.getElementById("exportBtn").addEventListener("click",()=>{
-  const blob=new Blob([JSON.stringify(cars,null,2)],{type:"application/json"});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement("a");
-  a.href=url;a.download="cpm1-auto-registrs.json";a.click();
-  URL.revokeObjectURL(url);
-});
-
-document.getElementById("importBtn").addEventListener("click",()=>document.getElementById("importFile").click());
-document.getElementById("importFile").addEventListener("change",async e=>{
-  const file=e.target.files[0];if(!file)return;
-  try{
-    const d=JSON.parse(await file.text());
-    if(!Array.isArray(d)||d.some(c=>!c||typeof c.plate!=="string"||typeof c.owner!=="string"||typeof c.make!=="string"||typeof c.model!=="string")){
-      throw Error();
-    }
-    const plates=d.map(c=>norm(c.plate));
-    if(new Set(plates).size!==plates.length)throw Error();
-    const old=cars;
-    cars=d.map(c=>({...c,id:typeof c.id==="string"?c.id:(crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random())}));
-    if(!saveCars())cars=old;
-    renderAll();search();
-  }catch{
-    alert("Neizdevās importēt failu. Pārbaudi JSON formātu un vai numura zīmes nav dublētas.");
-  }finally{e.target.value=""}
-});
-
-updateStats();
-renderAll();
-search();
-tab("search");
-</script>
-</body>
-</html>
+function deletePlayer(id) {
+  const p = playerById(id);
+  if (!p) return;
+  const count = db.vehicles.filter(v=>v.ownerId===id).length;
+  const fines = db.fines.filter(f=>f.ownerId===id).length;
+  if (!confirm(`Dzēst spēlētāju ${p.name}? Tiks dzēsti arī ${count} transportlīdzekļi un ${fines} sodi.`)) return;
+  db.players = db.players.filter(x=>x.id!==id);
+  db.vehicles = db.vehicles.filter(v=>v.ownerId!==id);
+  db.fines = db.fin
